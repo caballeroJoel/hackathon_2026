@@ -1,7 +1,13 @@
-import {partidaActual, difi} from './data.js';
+import {  partidaActual  } from "./data.js";
 
 // console.log(partidaActual);
 // console.log(difi);
+
+export function diffi(){
+    let dif = document.querySelector("#dificultad").value
+    partidaActual.dificultad = dif
+    console.log(partidaActual.dificultad)
+}
 
 iniciarPartida("dificil");
 
@@ -47,3 +53,4 @@ function randomVelocidad(velocidadMax, velocidadMin) {
 
     return randomVelocidad;
 }
+
