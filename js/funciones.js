@@ -41,7 +41,7 @@ export function diffi(){
     console.log(partidaActual.dificultad)
 }
 
-// iniciarPartida("dificil");
+iniciarPartida("facil");
 
 function iniciarPartida(dificultad) {
     console.log("Iniciando partida con dificultad:", dificultad);
@@ -59,7 +59,7 @@ function aparicionRecur(ratioAparicion, velocidadMax, cantidad) {
         
         let velocidadCaida = randomVelocidad(velocidadMax, velocidadMax + 20);
         
-        aparicion(ratioAparicion, velocidadCaida);
+        aparicion(velocidadCaida, cantidad);
 
         setTimeout(() => {
             aparicionRecur(ratioAparicion, velocidadMax, cantidad - 1);
@@ -68,10 +68,56 @@ function aparicionRecur(ratioAparicion, velocidadMax, cantidad) {
 
 }
 
-function aparicion(ratioAparicion, velocidadMax) {
+function aparicion(velocidadCaida, id) {
     // Lógica para la aparición de paracaidistas
 
     console.log("Aparece el paracaidista a velocidad:", velocidadMax);
+
+    const escenario = document.querySelector("#personajes");
+
+    const xParaca = xAleatorio();
+
+    console.log("Aparece el paracaidista a velocidad:", velocidadCaida, " en la posición X:", xParaca);
+
+    let html = `
+        <img style="left: ${xParaca}px;" id="p${id}" src="img/cayendo.gif" alt="" aria-hidden="true">
+    `;
+    escenario.innerHTML += html;
+
+    let cayendo = true;
+    let activo = true;
+
+    let caida = setInterval(() => {
+
+        let paracaidista = escenario.querySelector("#p"+id);
+        let posicionActual = parseInt(paracaidista.style.top) || 0;
+
+        paracaidista.style.top = (posicionActual + 10) + "px";
+
+        function salvar() {
+            if(!activo) return;
+            cayendo = false;
+            paracaidista.src = "img/paracaidas.gif";
+        }
+
+        paracaidista.addEventListener("click", salvar);
+
+        if(posicionActual >= escenario.offsetHeight - 140) {
+            activo = false;
+            clearInterval(caida);
+            paracaidista.removeEventListener("click", salvar);   
+
+            if(cayendo) {
+                paracaidista.src = "img/estrellado.gif";
+            } else {
+                paracaidista.src = "img/salvado.gif";
+            }
+
+            console.log("El paracaidista ha llegado al suelo.");
+        }
+
+    }, velocidadCaida);
+
 }
 
 function randomVelocidad(velocidadMax, velocidadMin) {
@@ -87,4 +133,15 @@ function habilitarBotones(){
     panelInicio.classList.add("aparecer");
     dificultad.disabled = false;
     verPartidas.disabled = false;
+}
+function xAleatorio() {
+    // Devuelve un número aleatorio entre 0 y el ancho del escenario
+
+    const escenario = document.querySelector("#escenario");
+    const anchoEscenario = escenario.offsetWidth;
+    
+    let randomX = Math.floor(Math.random() * anchoEscenario);
+
+    return randomX;
+
 }
