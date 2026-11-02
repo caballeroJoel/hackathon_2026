@@ -1,10 +1,14 @@
 "use strict";
 
+import { partidaActual } from "./data.js";
+import { diffi } from "./funciones.js";
+
 
 /* Todo el JavaScript del juego va aquí.
  * Acordad en el equipo quién programa cada parte (ver EMPIEZA_AQUI.md).
  * Podéis dejarlo en un solo archivo o partirlo en varios si os resulta más fácil con Git.
  */
+
 
 import { partidaActual } from "./data.js";
 import { PushHistorial, MostrarHistorial } from "./funciones.js";
@@ -51,3 +55,11 @@ document.getElementById("cerrar-historial").addEventListener("click", function()
 // Cambiar orden
 document.getElementById("orden-historial").addEventListener("change", MostrarHistorial);
 
+
+
+let dificultad = document.querySelector("#dificultad");
+
+dificultad.addEventListener("change", function() {
+    diffi()
+    console.log("Dificultad seleccionada: " + partidaActual.dificultad)
+});

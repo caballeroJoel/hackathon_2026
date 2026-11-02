@@ -14,7 +14,7 @@ export let partidaActual = {
 export const difi = {
     facil: {
         ratioAparicion: 2000,
-        velocidadMax: 50,
+        velocidadMax: 50,   
     },
     normal: {
         ratioAparicion: 1000,
