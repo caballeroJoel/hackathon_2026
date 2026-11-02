@@ -4,11 +4,10 @@
 
 export let partidaActual = {
     user: "",
-    dificultad: "",
+    dificultad: "medio",
     fechaPartida: "",
     salvados: 0,
     muertos: 0,
-    estado: false,
 }
 
 export const difi = {
