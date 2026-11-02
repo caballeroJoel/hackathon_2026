@@ -1,5 +1,3 @@
-
-"use strict";
 // Guardar una partida
 export function PushHistorial() {
 
@@ -107,43 +105,28 @@ export function MostrarHistorial() {
 }
 import { partidaActual, difi  } from "./data.js";
 
-import { partidaActual, difi } from "./data.js";
+const iniciar = document.querySelector("#iniciar")
+const panelInicio = document.querySelector("#panel-inicio")
+const dificultad = document.querySelector("#dificultad")
+const verPartidas = document.querySelector("#ver-historial")
 
-const panelInicio = document.querySelector("#panel-inicio");
-const dificultad = document.querySelector("#dificultad");
-const verPartidas = document.querySelector("#ver-historial");
-const panelFinal = document.querySelector("#panel-final");
+iniciar.addEventListener("click", function(){
+    panelInicio.classList.add("desaparecer");
+    dificultad.disabled = true;
+    verPartidas.disabled = true;
+})
 
-let resueltosCont = 0;
-let vivosCont = 0;
-let muertosCont = 0;
-
-/* ---------- Dificultad ---------- */
-
-export function diffi() {
-    const dif = document.querySelector("#dificultad").value;
-    partidaActual.dificultad = dif;
-    console.log(partidaActual.dificultad);
-}
-
-/* ---------- Guardar partida ---------- */
-
-function guardarPartida() {
+function guardarPartida(){
     const guardar = document.querySelector("#guardar");
     const inputNombre = document.querySelector("#nombre");
     const estado = document.querySelector("#estado-guardado");
-
-    if (!guardar || !inputNombre || !estado) return;
-
-    guardar.addEventListener("click", function (e) {
+    
+    guardar.addEventListener("click", function(e){
         e.preventDefault();
         const nombre = inputNombre.value.trim();
 
-        if (nombre.length > 0) {
+        if(nombre.length > 0){
             partidaActual.user = nombre;
-            partidaActual.salvados = vivosCont;
-            partidaActual.muertos = muertosCont;
-            partidaActual.fechaPartida = new Date().toLocaleString();
             estado.innerHTML = "Partida guardada correctamente";
             console.log(partidaActual);
         } else {
@@ -152,48 +135,40 @@ function guardarPartida() {
     });
 }
 
-
-
 guardarPartida();
 
-/* ---------- Partida ---------- */
+// console.log(partidaActual);
+// console.log(difi);
 
-export function iniciarPartida(nivel) {
-    console.log("Iniciando partida con dificultad:", nivel);
-
-    const config = difi[nivel];
-    if (!config) {
-        console.error("Dificultad no válida:", nivel, "→ revisa que coincida con las claves de difi en data.js");
-        return;
-    }
+export function diffi(){
+    let dif = document.querySelector("#dificultad").value
+    partidaActual.dificultad = dif
+    console.log(partidaActual.dificultad)
+}
 
 function iniciarPartida(dificultad) {
     console.log("Iniciando partida con dificultad:", dificultad);
     console.log(difi[dificultad]);
 
-
-    console.log(config);
-    aparicionRecur(config.ratioAparicion, config.velocidadMax, 50);
+    aparicionRecur(difi[dificultad].ratioAparicion, difi[dificultad].velocidadMax, 50);
 }
 
 function aparicionRecur(ratioAparicion, velocidadMax, cantidad) {
-    // Aparición recursiva de paracaidistas
-    if (cantidad !== 0) {
+    
+    // Lógica para la aparición de paracaidistas de manera recursiva
+
+    if(cantidad != 0) {
         console.log("Aparece el paracaidista numero:", cantidad);
-
-        const velocidadCaida = randomVelocidad(velocidadMax, velocidadMax + 20);
-
+        
+        let velocidadCaida = randomVelocidad(velocidadMax, velocidadMax + 20);
+        
         aparicion(velocidadCaida, cantidad);
 
-        if(resueltosCont == 50 || muertosCont == 3) {
-            finPartida();
-            return;
-        }
-
-        let part = setTimeout(() => {
+        setTimeout(() => {
             aparicionRecur(ratioAparicion, velocidadMax, cantidad - 1);
         }, ratioAparicion);
     }
+
 }
 
 function aparicion(velocidadCaida, id) {
@@ -201,91 +176,75 @@ function aparicion(velocidadCaida, id) {
 
     console.log("Aparece el paracaidista a velocidad:", velocidadCaida);
 
-
     const escenario = document.querySelector("#personajes");
+
     const xParaca = xAleatorio();
 
-    console.log("Aparece el paracaidista a velocidad:", velocidadCaida, "en la posición X:", xParaca);
+    console.log("Aparece el paracaidista a velocidad:", velocidadCaida, " en la posición X:", xParaca);
 
-    escenario.insertAdjacentHTML("beforeend", `
-        <img style="left: ${xParaca}px; top: 0px;" id="p${id}" src="img/cayendo.gif" alt="" aria-hidden="true">
-    `);
-
-    const paracaidista = escenario.querySelector("#p" + id);
+    let html = `
+        <img style="left: ${xParaca}px;" id="p${id}" src="img/cayendo.gif" alt="" aria-hidden="true">
+    `;
+    escenario.innerHTML += html;
 
     let cayendo = true;
     let activo = true;
 
-    function salvar() {
-        if (!activo) return;
-        cayendo = false;
-        paracaidista.src = "img/paracaidas.gif";
-    }
+    let caida = setInterval(() => {
 
-    paracaidista.addEventListener("click", salvar);
-
-    const caida = setInterval(() => {
-        const posicionActual = parseInt(paracaidista.style.top) || 0;
+        let paracaidista = escenario.querySelector("#p"+id);
+        let posicionActual = parseInt(paracaidista.style.top) || 0;
 
         paracaidista.style.top = (posicionActual + 10) + "px";
 
-        if (posicionActual >= escenario.offsetHeight - 140) {
+        function salvar() {
+            if(!activo) return;
+            cayendo = false;
+            paracaidista.src = "img/paracaidas.gif";
+        }
+
+        paracaidista.addEventListener("click", salvar);
+
+        if(posicionActual >= escenario.offsetHeight - 140) {
             activo = false;
             clearInterval(caida);
-            paracaidista.removeEventListener("click", salvar);
+            paracaidista.removeEventListener("click", salvar);   
 
-            paracaidista.src = cayendo ? "img/estrellado.gif" : "img/salvado.gif";
-
-            let resueltos = document.querySelector("#resueltos");
-
-            resueltosCont++;
-            resueltos.innerHTML = resueltosCont;
-
-            if(cayendo && muertosCont < 3) {
-                muertosCont++;
-                let estrellados = document.querySelector("#estrellados");
-                estrellados.innerHTML = muertosCont;
-            } else if(!cayendo) {
-                vivosCont++;
-                let salvados = document.querySelector("#salvados");
-                salvados.innerHTML = vivosCont;
+            if(cayendo) {
+                paracaidista.src = "img/estrellado.gif";
+            } else {
+                paracaidista.src = "img/salvado.gif";
             }
 
-            
             console.log("El paracaidista ha llegado al suelo.");
         }
+
     }, velocidadCaida);
-}
-
-/* ---------- Utilidades ---------- */
-
-function randomVelocidad(min, max) {
-    // Número aleatorio entre min y max (ambos incluidos)
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function xAleatorio() {
-    // Número aleatorio entre 0 y el ancho del escenario (menos el ancho de la imagen)
-    const escenario = document.querySelector("#escenario");
-    const anchoEscenario = escenario.offsetWidth;
-
-    return Math.floor(Math.random() * (anchoEscenario - 60));
-}
-
-function finPartida() {
-    // Lógica para finalizar la partida
-    
-    console.log("La partida ha terminado.");
-    panelFinal.removeAttribute("hidden");
-
 
 }
 
+function randomVelocidad(velocidadMax, velocidadMin) {
+    // Devuleve un número aleatorio entre velocidadMin y velocidadMax
+    // Devulve la velocidad a la que caerá el paracaidista
 
+    let randomVelocidad = Math.floor(Math.random() * (velocidadMax - velocidadMin + 1)) + velocidadMin;
 
-export function habilitarBotones() {
-    panelInicio.classList.remove("desaparecer");
+    return randomVelocidad;
+}
+
+function habilitarBotones(){
     panelInicio.classList.add("aparecer");
     dificultad.disabled = false;
     verPartidas.disabled = false;
+}
+function xAleatorio() {
+    // Devuelve un número aleatorio entre 0 y el ancho del escenario
+
+    const escenario = document.querySelector("#escenario");
+    const anchoEscenario = escenario.offsetWidth;
+    
+    let randomX = Math.floor(Math.random() * anchoEscenario);
+
+    return randomX;
+
 }
