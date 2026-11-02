@@ -29,9 +29,10 @@
         <h2 id="titulo-inicio">El rescate está<br>en tus manos<span>.</span></h2>
         <p>Pulsa a los paracaidistas mientras caen<br>para abrir su paracaídas.</p>
         <button id="iniciar" class="boton">Comenzar misión <span aria-hidden="true">↗</span></button>
+        <input type="text" placeholder="Tu nombre">
         <p class="nota">La misión termina con 3 impactos o 50 descensos.</p>
       </section>
-      <section id="panel-final" class="panel" aria-labelledby="titulo-final" hidden>
+      <section id="panel-final" class="panel" aria-labelledby="titulo-final">
         <p class="etiqueta">INFORME DE RESCATE</p>
         <h2 id="titulo-final">Misión finalizada<span>.</span></h2>
         <p id="resultado" role="status"></p>
@@ -53,9 +54,11 @@
     <div class="tabla-historial"><table><caption class="solo-lectores">Registro de partidas</caption><thead><tr><th scope="col">Nombre</th><th scope="col">Fecha</th><th scope="col">Puntos</th><th scope="col">Impactos</th><th scope="col">Dificultad</th></tr></thead><tbody id="filas-historial"></tbody></table></div>
   </dialog>
   <footer><span>¡SALVA A LOS PARACAIDISTAS!</span><span>RATÓN O PANTALLA TÁCTIL <b aria-hidden="true">✳</b></span></footer>
+
   <script type="module" src="./js/juego.js" ></script>
   <script type="module" src="./js/data.js"></script>
   <script type="module" src="./js/funciones.js"></script>
+
 </body>
 <script type="module" src="./js/funciones.js"></script>
 <script type="module" src="./js/data.js"></script>

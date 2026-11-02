@@ -8,6 +8,7 @@ import { diffi } from "./funciones.js";
  * Podéis dejarlo en un solo archivo o partirlo en varios si os resulta más fácil con Git.
  */
 
+
 let dificultad = document.querySelector("#dificultad");
 
 dificultad.addEventListener("change", function() {
