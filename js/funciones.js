@@ -103,7 +103,7 @@ export function MostrarHistorial() {
         mensaje.textContent = "No hay partidas";
     }
 }
-import {  partidaActual, difi  } from "./data.js";
+import { partidaActual, difi  } from "./data.js";
 
 const iniciar = document.querySelector("#iniciar")
 const panelInicio = document.querySelector("#panel-inicio")
@@ -146,8 +146,6 @@ export function diffi(){
     console.log(partidaActual.dificultad)
 }
 
-iniciarPartida("facil");
-
 function iniciarPartida(dificultad) {
     console.log("Iniciando partida con dificultad:", dificultad);
     console.log(difi[dificultad]);
@@ -176,7 +174,7 @@ function aparicionRecur(ratioAparicion, velocidadMax, cantidad) {
 function aparicion(velocidadCaida, id) {
     // Lógica para la aparición de paracaidistas
 
-    console.log("Aparece el paracaidista a velocidad:", velocidadMax);
+    console.log("Aparece el paracaidista a velocidad:", velocidadCaida);
 
     const escenario = document.querySelector("#personajes");
 

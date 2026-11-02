@@ -1,7 +1,7 @@
 "use strict";
 
 import { partidaActual } from "./data.js";
-import { diffi } from "./funciones.js";
+import { diffi, PushHistorial, MostrarHistorial } from "./funciones.js";
 
 
 /* Todo el JavaScript del juego va aquí.
@@ -10,8 +10,6 @@ import { diffi } from "./funciones.js";
  */
 
 
-import { partidaActual } from "./data.js";
-import { PushHistorial, MostrarHistorial } from "./funciones.js";
 
 
 
