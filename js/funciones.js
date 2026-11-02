@@ -1,5 +1,16 @@
 import {  partidaActual, difi  } from "./data.js";
 
+const iniciar = document.querySelector("#iniciar")
+const panelInicio = document.querySelector("#panel-inicio")
+const dificultad = document.querySelector("#dificultad")
+const verPartidas = document.querySelector("#ver-historial")
+
+iniciar.addEventListener("click", function(){
+    panelInicio.classList.add("desaparecer");
+    dificultad.disabled = true;
+    verPartidas.disabled = true;
+})
+
 function guardarPartida(){
     const guardar = document.querySelector("#guardar");
     const inputNombre = document.querySelector("#nombre");
@@ -60,6 +71,8 @@ function aparicionRecur(ratioAparicion, velocidadMax, cantidad) {
 function aparicion(velocidadCaida, id) {
     // Lógica para la aparición de paracaidistas
 
+    console.log("Aparece el paracaidista a velocidad:", velocidadMax);
+
     const escenario = document.querySelector("#personajes");
 
     const xParaca = xAleatorio();
@@ -116,6 +129,11 @@ function randomVelocidad(velocidadMax, velocidadMin) {
     return randomVelocidad;
 }
 
+function habilitarBotones(){
+    panelInicio.classList.add("aparecer");
+    dificultad.disabled = false;
+    verPartidas.disabled = false;
+}
 function xAleatorio() {
     // Devuelve un número aleatorio entre 0 y el ancho del escenario
 
