@@ -9,10 +9,6 @@ import { diffi, PushHistorial, MostrarHistorial } from "./funciones.js";
  * Podéis dejarlo en un solo archivo o partirlo en varios si os resulta más fácil con Git.
  */
 
-
-
-
-
 let guardada = false;
 
 // Guardar resultado al pulsar el boton

@@ -114,6 +114,9 @@ iniciar.addEventListener("click", function(){
     panelInicio.classList.add("desaparecer");
     dificultad.disabled = true;
     verPartidas.disabled = true;
+
+    iniciarPartida(partidaActual.dificultad);
+
 })
 
 function guardarPartida(){
@@ -141,7 +144,7 @@ guardarPartida();
 // console.log(difi);
 
 export function diffi(){
-    let dif = document.querySelector("#dificultad").value
+    let dif = document.querySelector("#dificultad").value || "medio";
     partidaActual.dificultad = dif
     console.log(partidaActual.dificultad)
 }

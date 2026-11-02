@@ -4,7 +4,7 @@
 
 export let partidaActual = {
     user: "",
-    dificultad: "",
+    dificultad: "medio",
     fechaPartida: "",
     salvados: 0,
     muertos: 0,
@@ -16,7 +16,7 @@ export const difi = {
         ratioAparicion: 2000,
         velocidadMax: 50,   
     },
-    normal: {
+    medio: {
         ratioAparicion: 1000,
         velocidadMax: 20,
     },
