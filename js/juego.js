@@ -57,3 +57,7 @@ dificultad.addEventListener("change", function() {
     diffi()
     console.log("Dificultad seleccionada: " + partidaActual.dificultad)
 });
+
+reiniciar.addEventListener("click", function () {
+    location.reload();
+});

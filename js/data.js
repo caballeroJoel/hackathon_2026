@@ -8,7 +8,6 @@ export let partidaActual = {
     fechaPartida: "",
     salvados: 0,
     muertos: 0,
-    estado: false,
 }
 
 export const difi = {
