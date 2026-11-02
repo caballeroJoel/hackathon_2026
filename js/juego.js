@@ -1,17 +1,33 @@
 "use strict";
 
 import { partidaActual } from "./data.js";
-import { diffi } from "./funciones.js";
+import { diffi, iniciarPartida } from "./funciones.js";
 
-/* Todo el JavaScript del juego va aquí.
- * Acordad en el equipo quién programa cada parte (ver EMPIEZA_AQUI.md).
- * Podéis dejarlo en un solo archivo o partirlo en varios si os resulta más fácil con Git.
- */
+const dificultad = document.querySelector("#dificultad");
+const iniciar = document.querySelector("#iniciar");
+const panelInicio = document.querySelector("#panel-inicio");
+const verPartidas = document.querySelector("#ver-historial");
+const reiniciar = document.querySelector("#reiniciar");
 
-
-let dificultad = document.querySelector("#dificultad");
-
-dificultad.addEventListener("change", function() {
-    diffi()
-    console.log("Dificultad seleccionada: " + partidaActual.dificultad)
+dificultad.addEventListener("change", function () {
+    diffi();
+    console.log("Dificultad seleccionada: " + partidaActual.dificultad);
 });
+
+iniciar.addEventListener("click", function () {
+    diffi(); // asegura que partidaActual.dificultad tenga valor aunque no se toque el select
+    panelInicio.classList.add("desaparecer");
+    dificultad.disabled = true;
+    verPartidas.disabled = true;
+    iniciarPartida(partidaActual.dificultad);
+
+});
+
+reiniciar.addEventListener("click", function () {
+
+    location.reload();
+});
+
+
+
+
