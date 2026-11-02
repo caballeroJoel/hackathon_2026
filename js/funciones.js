@@ -42,8 +42,6 @@ export function CargarHistorial() {
     let partidas = JSON.parse(datos);
 
     return partidas;
-
-
 }
 
 // Mostrar las partidas en la tabla
@@ -91,10 +89,10 @@ export function MostrarHistorial() {
                     <td>
                         ${datos[j]}
                     </td>
-                <tr>
             `;
         }
 
+        tabla.innerHTML += "</tr>";
 
     }
 
@@ -139,6 +137,8 @@ function guardarPartida(){
             partidaActual.muertos = muertosCont;
             estado.innerHTML = "Partida guardada correctamente";
             console.log(partidaActual);
+
+            PushHistorial();
         } else {
             estado.innerHTML = "Debes escribir un nombre para guardar la partida";
         }
