@@ -14,4 +14,4 @@ let dificultad = document.querySelector("#dificultad");
 dificultad.addEventListener("change", function() {
     diffi()
     console.log("Dificultad seleccionada: " + partidaActual.dificultad)
-})
+});

@@ -1,4 +1,4 @@
-import {  partidaActual  } from "./data.js";
+import {  partidaActual, difi  } from "./data.js";
 
 function guardarPartida(){
     const guardar = document.querySelector("#guardar");
@@ -30,7 +30,7 @@ export function diffi(){
     console.log(partidaActual.dificultad)
 }
 
-iniciarPartida("dificil");
+// iniciarPartida("dificil");
 
 function iniciarPartida(dificultad) {
     console.log("Iniciando partida con dificultad:", dificultad);
